@@ -1,12 +1,12 @@
-name: orbitarelay
+name: navalrelay
 
 # Banco de dados (MySQL). SSL: disable | preferred | required | skip-verify
-# Para usar um MySQL externo, altere ORBITA_DB_HOST/PORT e remova o serviço "orbitarelay-db" e o depends_on.
+# Para usar um MySQL externo, altere ORBITA_DB_HOST/PORT e remova o serviço "navalrelay-db" e o depends_on.
 services:
-  orbitarelay-db:
+  navalrelay-db:
     image: mysql:latest
-    container_name: orbitarelay-db
-    hostname: orbitarelay-db
+    container_name: navalrelay-db
+    hostname: navalrelay-db
     restart: unless-stopped
     environment:
       MYSQL_DATABASE: orbita
@@ -23,24 +23,24 @@ services:
       retries: 30
       start_period: 20s
 
-  orbitarelay-app:
-    image: ghcr.io/aprendendolinux/orbita-relay-app:1.6.3
-    container_name: orbitarelay-app
-    hostname: orbitarelay-app
+  navalrelay-app:
+    image: ghcr.io/clubenaval/navalrelay-app:0.0.1
+    container_name: navalrelay-app
+    hostname: navalrelay-app
     restart: unless-stopped
     depends_on:
-      orbitarelay-db:
+      navalrelay-db:
         condition: service_healthy
-      orbitarelay-proxy:
+      navalrelay-proxy:
         condition: service_started
     environment:
-      ORBITA_DB_HOST: orbitarelay-db
+      ORBITA_DB_HOST: navalrelay-db
       ORBITA_DB_PORT: "3306"
       ORBITA_DB_NAME: orbita
       ORBITA_DB_USER: orbita
       ORBITA_DB_PASSWORD: orbita
       ORBITA_DB_SSL: preferred
-      ORBITA_DOCKER_API: http://orbitarelay-proxy:2375
+      ORBITA_DOCKER_API: http://navalrelay-proxy:2375
       # ORBITA_HOST_IPS: "192.168.0.10"  # (opcional) IP(s) da máquina para as redes autorizadas
     ports:
       - "8080:8080"
@@ -50,10 +50,10 @@ services:
       - mta-logs:/var/log/exim:ro
     networks: [orbita]
 
-  orbitarelay-mta:
-    image: ghcr.io/aprendendolinux/orbita-relay-mta:1.6.3
-    container_name: orbitarelay-mta
-    hostname: orbitarelay-mta
+  navalrelay-mta:
+    image: ghcr.io/clubenaval/navalrelay-mta:0.0.1
+    container_name: navalrelay-mta
+    hostname: navalrelay-mta
     restart: unless-stopped
     ports:
       - "25:25"
@@ -69,10 +69,10 @@ services:
 
   # Proxy somente leitura da API do Docker: expõe apenas versão, info e redes, para o painel
   # diagnosticar o IPv6. Para desativar, remova este serviço e a variável ORBITA_DOCKER_API do app.
-  orbitarelay-proxy:
+  navalrelay-proxy:
     image: tecnativa/docker-socket-proxy:0.3.0
-    container_name: orbitarelay-proxy
-    hostname: orbitarelay-proxy
+    container_name: navalrelay-proxy
+    hostname: navalrelay-proxy
     restart: unless-stopped
     environment:
       VERSION: "1"

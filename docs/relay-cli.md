@@ -1,8 +1,8 @@
 # Relay CLI (leve)
 
-O **OrbitaRelay CLI** é um relay SMTP (Exim) **sem painel e sem banco de dados**. Toda a configuração fica no `docker-compose.yml`. Ele pode funcionar sozinho ou enviar os eventos a um [servidor central](multi-servidor.md).
+O **NavalRelay CLI** é um relay SMTP (Exim) **sem painel e sem banco de dados**. Toda a configuração fica no `docker-compose.yml`. Ele pode funcionar sozinho ou enviar os eventos a um [servidor central](multi-servidor.md).
 
-Imagem: `ghcr.io/aprendendolinux/orbita-relay-cli` (amd64 e arm64).
+Imagem: `ghcr.io/clubenaval/navalrelay-cli` (amd64 e arm64).
 
 ## Os três arquivos docker-compose
 
@@ -18,11 +18,11 @@ Os dois arquivos CLI são **comentados linha a linha**: abra, ajuste os valores 
 
 ```bash
 # modo relay
-curl -O https://raw.githubusercontent.com/AprendendoLinux/orbita-relay/main/docker-compose.cli-relay.yml
+curl -O https://raw.githubusercontent.com/clubenaval/navalrelay/main/docker-compose.cli-relay.yml
 docker compose -f docker-compose.cli-relay.yml up -d
 
 # ou modo smarthost
-curl -O https://raw.githubusercontent.com/AprendendoLinux/orbita-relay/main/docker-compose.cli-smarthost.yml
+curl -O https://raw.githubusercontent.com/clubenaval/navalrelay/main/docker-compose.cli-smarthost.yml
 docker compose -f docker-compose.cli-smarthost.yml up -d
 ```
 
@@ -84,7 +84,7 @@ Valores inválidos fazem o contêiner **parar na subida** com a mensagem do erro
 No modo `relay`, ao subir, o contêiner gera uma chave DKIM (RSA 2048) para cada domínio de `ORBITA_DOMAINS` e imprime os registros SPF, DKIM e DMARC prontos para publicar. Para vê-los de novo:
 
 ```bash
-docker exec orbitarelay-cli orbita dns
+docker exec navalrelay-cli orbita dns
 ```
 
 No modo `smarthost` a assinatura e o SPF ficam com o provedor do smarthost.
@@ -92,7 +92,7 @@ No modo `smarthost` a assinatura e o SPF ficam com o provedor do smarthost.
 ## Logs
 
 ```bash
-docker logs -f orbitarelay-cli
+docker logs -f navalrelay-cli
 ```
 
 Mostram o `main.log` do Exim em tempo real, linhas do `reject.log` (`[reject]`) e do `panic.log` (`[panic]`) e os eventos do próprio contêiner (`[cli]`). Os arquivos continuam em `/var/log/exim`, com rotação.
@@ -101,11 +101,11 @@ Mostram o `main.log` do Exim em tempo real, linhas do `reject.log` (`[reject]`) 
 
 | Comando | O que faz |
 |---|---|
-| `docker exec orbitarelay-cli orbita status` | SMTP, fila, chaves DKIM e conexão com o central |
-| `docker exec orbitarelay-cli orbita dns` | Registros SPF, DKIM e DMARC |
-| `docker exec orbitarelay-cli orbita config` | Configuração efetiva (`--exim` mostra o `exim.conf`, sem senhas) |
-| `docker exec orbitarelay-cli orbita queue` | Fila de mensagens |
-| `docker exec orbitarelay-cli orbita test-mail destino@exemplo.com [remetente]` | Envia uma mensagem de teste |
+| `docker exec navalrelay-cli orbita status` | SMTP, fila, chaves DKIM e conexão com o central |
+| `docker exec navalrelay-cli orbita dns` | Registros SPF, DKIM e DMARC |
+| `docker exec navalrelay-cli orbita config` | Configuração efetiva (`--exim` mostra o `exim.conf`, sem senhas) |
+| `docker exec navalrelay-cli orbita queue` | Fila de mensagens |
+| `docker exec navalrelay-cli orbita test-mail destino@exemplo.com [remetente]` | Envia uma mensagem de teste |
 
 ## Enviando dados ao servidor central
 

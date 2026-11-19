@@ -29,7 +29,7 @@ func emit(line string) {
 }
 
 func (c Config) banner() {
-	logf("OrbitaRelay CLI %s", version)
+	logf("NavalRelay CLI %s", version)
 	logf("modo: %s | hostname: %s | IP: %s | limite: %d MB", c.Mode, c.Hostname, map[bool]string{true: "somente IPv4", false: "IPv4+IPv6"}[c.IPv4Only], c.MaxMB)
 	logf("redes autorizadas: %s", strings.Join(c.effectiveNets(), ", "))
 	if gw := gatewayIPs(); len(gw) > 0 {
@@ -240,7 +240,7 @@ func tailLogs(ctx context.Context) {
 
 func (c Config) client() *push.Client {
 	return &push.Client{Scheme: c.CentralScheme, Host: c.CentralHost, Port: c.CentralPort, BasePath: push.TrimBase(c.CentralPath),
-		Token: c.CentralToken, SkipVerify: c.CentralSkip, UserAgent: "OrbitaRelay-CLI/" + version}
+		Token: c.CentralToken, SkipVerify: c.CentralSkip, UserAgent: "NavalRelay-CLI/" + version}
 }
 
 func (c Config) pushLoop(ctx context.Context) {

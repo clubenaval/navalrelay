@@ -62,7 +62,7 @@ export default function Nodes() {
         <b>Como conectar um novo servidor</b>
         <ol className="guide">
           <li>Informe um nome abaixo e clique em <b>Adicionar servidor</b>. O token aparece <b>uma única vez</b>: copie-o.</li>
-          <li>No OrbitaRelay do outro servidor, abra o assistente (ou Configurações &gt; Geral) e escolha a implantação <b>Cliente</b>.</li>
+          <li>No NavalRelay do outro servidor, abra o assistente (ou Configurações &gt; Geral) e escolha a implantação <b>Cliente</b>.</li>
           <li>Preencha o endereço deste servidor{host ? <> (<span className="mono">{host.hostname}</span>)</> : null}, a porta e o protocolo. Cole o token e clique em <b>Testar conexão</b>.</li>
           <li>Se este servidor está atrás de um proxy reverso com HTTPS, use protocolo <b>HTTPS</b> e porta <b>443</b> no cliente, e ative "Estou atrás de um proxy reverso" em Configurações aqui.</li>
         </ol>

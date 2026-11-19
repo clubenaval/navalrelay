@@ -4,7 +4,7 @@ import "testing"
 
 func TestParseClientUA(t *testing.T) {
 	for ua, want := range map[string][2]string{
-		"OrbitaRelay-CLI/1.6.0": {"cli", "1.6.0"}, "OrbitaRelay/1.5.0": {"app", "1.5.0"}, "curl/8": {"", ""}, "": {"", ""},
+		"NavalRelay-CLI/1.6.0": {"cli", "1.6.0"}, "NavalRelay/1.5.0": {"app", "1.5.0"}, "curl/8": {"", ""}, "": {"", ""},
 	} {
 		k, v := parseClientUA(ua)
 		if k != want[0] || v != want[1] {

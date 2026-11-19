@@ -41,33 +41,33 @@ var mailTpl = template.Must(template.New("mail").Parse(`<!doctype html>
 <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light dark"><meta name="supported-color-schemes" content="light dark">
 <title>{{.Title}}</title></head>
-<body style="margin:0;padding:0;background:#eaf0f6;">
+<body style="margin:0;padding:0;background:#f4f1ec;">
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;">{{.Preheader}}</div>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#eaf0f6;padding:28px 12px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f1ec;padding:28px 12px;">
 <tr><td align="center">
 <table role="presentation" width="560" cellpadding="0" cellspacing="0" style="width:100%;max-width:560px;border-radius:18px;overflow:hidden;background:#ffffff;box-shadow:0 8px 30px rgba(8,16,32,0.12);">
-<tr><td style="background:#0a1020;background-image:linear-gradient(135deg,#0a1020 0%,#10213a 100%);padding:26px 32px;border-bottom:3px solid #22d3ee;">
+<tr><td style="background:#0a1020;background-image:linear-gradient(135deg,#0a1020 0%,#10213a 100%);padding:26px 32px;border-bottom:3px solid #c8102e;">
 <table role="presentation" cellpadding="0" cellspacing="0"><tr>
-<td style="vertical-align:middle;"><img src="cid:logo@orbitarelay" width="52" height="52" alt="{{.App}}" style="display:block;border:0;"></td>
+<td style="vertical-align:middle;"><img src="cid:logo@navalrelay" width="52" height="52" alt="{{.App}}" style="display:block;border:0;"></td>
 <td style="vertical-align:middle;padding-left:14px;font-family:'Segoe UI',Helvetica,Arial,sans-serif;">
 <div style="font-size:22px;font-weight:700;letter-spacing:0.3px;color:#ffffff;">{{.App}}</div>
-<div style="font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#67e8f9;margin-top:2px;">Relay SMTP e relatórios</div></td>
+<div style="font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#e2c27d;margin-top:2px;">Relay SMTP e relatórios</div></td>
 </tr></table></td></tr>
 <tr><td style="padding:34px 32px 8px 32px;font-family:'Segoe UI',Helvetica,Arial,sans-serif;color:#1e293b;">
 <h1 style="margin:0 0 16px 0;font-size:22px;line-height:1.3;color:#0a1020;">{{.Title}}</h1>
 {{range .Paragraphs}}<p style="margin:0 0 14px 0;font-size:15px;line-height:1.6;color:#334155;">{{.}}</p>{{end}}
-{{if .Code}}<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:22px 0 10px 0;"><tr><td align="center" style="background:#0a1020;border:1px solid #22d3ee;border-radius:14px;padding:20px 12px;">
-<div style="font-family:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace;font-size:34px;font-weight:700;letter-spacing:10px;color:#67e8f9;padding-left:10px;">{{.Code}}</div></td></tr></table>
+{{if .Code}}<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:22px 0 10px 0;"><tr><td align="center" style="background:#0a1020;border:1px solid #c8102e;border-radius:14px;padding:20px 12px;">
+<div style="font-family:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace;font-size:34px;font-weight:700;letter-spacing:10px;color:#e2c27d;padding-left:10px;">{{.Code}}</div></td></tr></table>
 {{if .CodeNote}}<p style="margin:0 0 14px 0;font-size:13px;color:#64748b;text-align:center;">{{.CodeNote}}</p>{{end}}{{end}}
-{{if .ButtonURL}}<table role="presentation" cellpadding="0" cellspacing="0" style="margin:22px auto 10px auto;"><tr><td align="center" style="border-radius:12px;background:#22d3ee;">
-<a href="{{.ButtonURL}}" style="display:inline-block;padding:13px 28px;font-size:15px;font-weight:700;color:#06202a;text-decoration:none;border-radius:12px;">{{.ButtonLabel}}</a></td></tr></table>
+{{if .ButtonURL}}<table role="presentation" cellpadding="0" cellspacing="0" style="margin:22px auto 10px auto;"><tr><td align="center" style="border-radius:12px;background:#c8102e;">
+<a href="{{.ButtonURL}}" style="display:inline-block;padding:13px 28px;font-size:15px;font-weight:700;color:#ffffff;text-decoration:none;border-radius:12px;">{{.ButtonLabel}}</a></td></tr></table>
 <p style="margin:0 0 14px 0;font-size:12px;color:#94a3b8;text-align:center;word-break:break-all;">Se o botão não funcionar, copie e cole este endereço no navegador:<br>{{.ButtonURL}}</p>{{end}}
 {{if .Notice}}<div style="margin:22px 0 10px 0;padding:12px 14px;border-left:3px solid #f59e0b;background:#fffbeb;border-radius:6px;font-size:13px;line-height:1.5;color:#78350f;">{{.Notice}}</div>{{end}}
 </td></tr>
 <tr><td style="padding:18px 32px 28px 32px;font-family:'Segoe UI',Helvetica,Arial,sans-serif;">
 <div style="border-top:1px solid #e2e8f0;padding-top:16px;font-size:12px;line-height:1.6;color:#94a3b8;text-align:center;">
 Esta é uma mensagem automática de segurança do {{.App}}. Não responda a este e-mail.<br>
-{{.App}} v{{.Version}} · Desenvolvido por <a href="https://henrique.tec.br" style="color:#0e7490;text-decoration:none;">Henrique Fagundes</a></div></td></tr>
+{{.App}} v{{.Version}} · Desenvolvido por <a href="https://clubenaval.org.br" style="color:#c8102e;text-decoration:none;">Assessoria de TI</a></div></td></tr>
 </table></td></tr></table></body></html>`))
 
 func (a *App) renderMail(m mailMsg) (string, string, error) {
@@ -116,7 +116,7 @@ func (a *App) buildMIME(from, to, subject, text, html string) ([]byte, error) {
 	hdr("To", "<"+to+">")
 	hdr("Subject", mime.QEncoding.Encode("utf-8", subject))
 	hdr("Date", time.Now().Format(time.RFC1123Z))
-	hdr("Message-ID", "<"+randomToken(12)+"@orbitarelay>")
+	hdr("Message-ID", "<"+randomToken(12)+"@navalrelay>")
 	hdr("MIME-Version", "1.0")
 	hdr("Auto-Submitted", "auto-generated")
 	hdr("X-Auto-Response-Suppress", "All")
@@ -145,7 +145,7 @@ func (a *App) buildMIME(from, to, subject, text, html string) ([]byte, error) {
 	ip, err := rel.CreatePart(textproto.MIMEHeader{
 		"Content-Type":              {`image/png; name="logo.png"`},
 		"Content-Transfer-Encoding": {"base64"},
-		"Content-ID":                {"<logo@orbitarelay>"},
+		"Content-ID":                {"<logo@navalrelay>"},
 		"Content-Disposition":       {`inline; filename="logo.png"`},
 	})
 	if err != nil {

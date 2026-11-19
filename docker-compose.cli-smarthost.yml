@@ -1,4 +1,4 @@
-# OrbitaRelay CLI, modo SMARTHOST: entrega por outro servidor SMTP (Gmail, Office 365, provedor...).
+# NavalRelay CLI, modo SMARTHOST: entrega por outro servidor SMTP (Gmail, Office 365, provedor...).
 # Relay SMTP leve (Exim), sem painel e sem banco de dados.
 # Neste modo o DKIM e o SPF ficam por conta do provedor do smarthost: não há chave DKIM aqui.
 # Para entrega direta com DKIM próprio, use docker-compose.cli-relay.yml.
@@ -9,10 +9,10 @@
 # Guia rápido
 #   1. Preencha ORBITA_HOSTNAME e os dados do smarthost (ORBITA_SMARTHOST_*).
 #   2. Suba:            docker compose -f docker-compose.cli-smarthost.yml up -d
-#   3. Teste:           docker exec orbitarelay-cli orbita test-mail voce@gmail.com
-#   4. Acompanhe:       docker logs -f orbitarelay-cli
+#   3. Teste:           docker exec navalrelay-cli orbita test-mail voce@gmail.com
+#   4. Acompanhe:       docker logs -f navalrelay-cli
 #
-# Comandos úteis (docker exec orbitarelay-cli orbita ...)
+# Comandos úteis (docker exec navalrelay-cli orbita ...)
 #   status      SMTP, fila e conexão com o servidor central
 #   config      configuração efetiva (config --exim mostra o exim.conf, sem senhas)
 #   queue       fila de mensagens
@@ -20,12 +20,12 @@
 #
 # Valores inválidos fazem o contêiner parar na subida, com a mensagem do erro em "docker logs".
 
-name: orbitarelay-cli
+name: navalrelay-cli
 
 services:
-  orbitarelay-cli:
-    image: ghcr.io/aprendendolinux/orbita-relay-cli:1.6.3
-    container_name: orbitarelay-cli
+  navalrelay-cli:
+    image: ghcr.io/clubenaval/navalrelay-cli:0.0.1
+    container_name: navalrelay-cli
     hostname: relay-filial
     restart: unless-stopped
 
@@ -81,7 +81,7 @@ services:
       # e o remetente deve ser de um domínio da conta.
 
       # ------------------------------------------------- Servidor central (opcional)
-      # Envia os eventos do log deste relay ao painel OrbitaRelay central, que unifica
+      # Envia os eventos do log deste relay ao painel NavalRelay central, que unifica
       # os relatórios. Sem a URL, o relay funciona sozinho.
       # No central: Relays remotos > adicionar servidor > copie o token (aparece uma vez).
       # ORBITA_CENTRAL_URL: https://orbita.exemplo.com.br
@@ -91,7 +91,7 @@ services:
       # Se o central ficar fora do ar, o envio retoma de onde parou, sem perda e sem duplicar.
 
       # ------------------------------------------------------------------ Logs
-      # O log do Exim aparece em "docker logs -f orbitarelay-cli" (linhas [reject] e
+      # O log do Exim aparece em "docker logs -f navalrelay-cli" (linhas [reject] e
       # [panic] marcadas; [cli] são os eventos do próprio contêiner). Os arquivos ficam
       # em /var/log/exim dentro do contêiner, com rotação:
       # ORBITA_LOG_ROTATE_MB: 50   # roda ao passar deste tamanho (MB)

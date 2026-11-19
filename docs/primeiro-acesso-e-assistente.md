@@ -9,7 +9,7 @@ Depois de subir os contêineres, abra `http://IP-DO-SERVIDOR:8080`. O primeiro a
   <img src="img/02-primeiro-acesso-2.png" alt="Etapa 2: senha" width="48%">
 </p>
 
-1. **Acesso**: informe o **token de configuração** (está nos logs do contêiner: `docker compose logs orbitarelay-app | grep TOKEN`), o **nome do sistema**, o **usuário** e o **e-mail** do administrador. O e-mail é obrigatório porque é usado na recuperação de senha e no 2FA. O token é conferido ao avançar.
+1. **Acesso**: informe o **token de configuração** (está nos logs do contêiner: `docker compose logs navalrelay-app | grep TOKEN`), o **nome do sistema**, o **usuário** e o **e-mail** do administrador. O e-mail é obrigatório porque é usado na recuperação de senha e no 2FA. O token é conferido ao avançar.
 2. **Senha**: defina a senha e confirme. Há um medidor de força e o botão **Gerar senha forte** (16 caracteres, só letras e números, com botão para copiar). Use ao menos 10 caracteres.
 
 Se o MySQL não estiver configurado pelo compose, há antes uma etapa de **Banco de dados**, com host, porta, usuário, senha, banco e modo SSL, que é testada antes de seguir.

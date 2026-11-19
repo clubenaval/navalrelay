@@ -28,19 +28,19 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           build-args: VERSION=${{ steps.v.outputs.version }}
-          labels: org.opencontainers.image.source=https://github.com/AprendendoLinux/orbita-relay
+          labels: org.opencontainers.image.source=https://github.com/clubenaval/navalrelay
           tags: |
-            ghcr.io/aprendendolinux/orbita-relay-app:${{ steps.v.outputs.version }}
-            ghcr.io/aprendendolinux/orbita-relay-app:latest
+            ghcr.io/clubenaval/navalrelay-app:${{ steps.v.outputs.version }}
+            ghcr.io/clubenaval/navalrelay-app:latest
       - uses: docker/build-push-action@v6
         with:
           context: ./mta
           push: true
           platforms: linux/amd64,linux/arm64
-          labels: org.opencontainers.image.source=https://github.com/AprendendoLinux/orbita-relay
+          labels: org.opencontainers.image.source=https://github.com/clubenaval/navalrelay
           tags: |
-            ghcr.io/aprendendolinux/orbita-relay-mta:${{ steps.v.outputs.version }}
-            ghcr.io/aprendendolinux/orbita-relay-mta:latest
+            ghcr.io/clubenaval/navalrelay-mta:${{ steps.v.outputs.version }}
+            ghcr.io/clubenaval/navalrelay-mta:latest
       - uses: docker/build-push-action@v6
         with:
           context: .
@@ -48,7 +48,7 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           build-args: VERSION=${{ steps.v.outputs.version }}
-          labels: org.opencontainers.image.source=https://github.com/AprendendoLinux/orbita-relay
+          labels: org.opencontainers.image.source=https://github.com/clubenaval/navalrelay
           tags: |
-            ghcr.io/aprendendolinux/orbita-relay-cli:${{ steps.v.outputs.version }}
-            ghcr.io/aprendendolinux/orbita-relay-cli:latest
+            ghcr.io/clubenaval/navalrelay-cli:${{ steps.v.outputs.version }}
+            ghcr.io/clubenaval/navalrelay-cli:latest

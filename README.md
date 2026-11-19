@@ -1,22 +1,22 @@
 <div align="center">
 
-# OrbitaRelay
+# NavalRelay
 
 **Relay SMTP com painel web: envie e-mails, acompanhe cada mensagem e mantenha SPF, DKIM e DMARC em ordem, tudo em um só lugar.**
 
-[![Versão](https://img.shields.io/github/v/release/AprendendoLinux/orbita-relay?label=vers%C3%A3o&color=22d3ee)](https://github.com/AprendendoLinux/orbita-relay/releases)
-[![Imagem Docker](https://img.shields.io/badge/ghcr.io-orbita--relay-0e7490)](https://github.com/AprendendoLinux?tab=packages&repo_name=orbita-relay)
+[![Versão](https://img.shields.io/github/v/release/clubenaval/navalrelay?label=vers%C3%A3o&color=c8102e)](https://github.com/clubenaval/navalrelay/releases)
+[![Imagem Docker](https://img.shields.io/badge/ghcr.io-navalrelay-c8102e)](https://github.com/clubenaval?tab=packages&repo_name=navalrelay)
 ![Go](https://img.shields.io/badge/Go-1.23-00add8)
 ![React](https://img.shields.io/badge/React-18-61dafb)
 ![Exim](https://img.shields.io/badge/Exim-4.96-6b7280)
 
-<img src="docs/img/11-painel.png" alt="Painel do OrbitaRelay" width="900">
+<img src="docs/img/11-painel.png" alt="Painel do NavalRelay" width="900">
 
 </div>
 
 ---
 
-O **OrbitaRelay** combina um servidor de e-mail de saída (**Exim**) com um painel web moderno. Você configura tudo pelo navegador, sem editar arquivos do Exim, e acompanha o resultado de cada envio com relatórios, filtros e exportação em PDF.
+O **NavalRelay** combina um servidor de e-mail de saída (**Exim**) com um painel web moderno. Você configura tudo pelo navegador, sem editar arquivos do Exim, e acompanha o resultado de cada envio com relatórios, filtros e exportação em PDF.
 
 ## Sumário
 
@@ -38,7 +38,7 @@ O **OrbitaRelay** combina um servidor de e-mail de saída (**Exim**) com um pain
 | **Relay SMTP completo** | Entrega direta (Relay SMTP) ou por um provedor (Smarthost, como Gmail, Office 365 e SES). Portas 25 e 587, IPv4 e IPv6. |
 | **SPF, DKIM e DMARC sem dor de cabeça** | Cadastre o domínio e a chave DKIM já nasce assinando as mensagens. O painel mostra os registros de DNS prontos para copiar e **verifica o DNS** para você. |
 | **Relatórios de verdade** | Todas as mensagens, com remetente, destinatários, assunto, origem e resultado de entrega. Filtros, gráfico por dia, **exportação em CSV e PDF** (A4, tema claro). |
-| **Vários servidores em um painel** | Um OrbitaRelay central recebe os eventos de outros relays (modo push, por HTTP ou HTTPS, atrás de proxy reverso). |
+| **Vários servidores em um painel** | Um NavalRelay central recebe os eventos de outros relays (modo push, por HTTP ou HTTPS, atrás de proxy reverso). |
 | **Integração com Mailcow** | Registra as mensagens recebidas e enviadas por servidores [Mailcow](https://mailcow.email) lendo a API, sem instalar nada neles. |
 | **Autenticação forte** | Login local ou **LDAP/Active Directory**, 2FA por aplicativo (TOTP) ou e-mail, códigos de recuperação, dispositivo confiável por 30 dias e recuperação de senha por e-mail. |
 | **Seguro por padrão** | Proteção contra *open relay*, redes autorizadas detectadas sozinhas, segredos criptografados (AES-256-GCM), limite de tentativas de login. |
@@ -49,21 +49,21 @@ O **OrbitaRelay** combina um servidor de e-mail de saída (**Exim**) com um pain
 
 ```mermaid
 flowchart LR
-    A[Aplicações e servidores<br/>da sua rede] -->|SMTP 25 / 587| M[orbitarelay-mta<br/>Exim 4.96]
+    A[Aplicações e servidores<br/>da sua rede] -->|SMTP 25 / 587| M[navalrelay-mta<br/>Exim 4.96]
     M -->|entrega direta + DKIM| D[(Internet)]
     M -.->|ou via smarthost| S[Gmail / Office 365 / SES]
-    M -->|main.log| P[orbitarelay-app<br/>painel + API em Go]
-    P --> DB[(orbitarelay-db<br/>MySQL)]
+    M -->|main.log| P[navalrelay-app<br/>painel + API em Go]
+    P --> DB[(navalrelay-db<br/>MySQL)]
     P -->|gera a configuração| M
     MC[Servidores Mailcow] -->|API somente leitura| P
-    R[Outros OrbitaRelay] -->|push HTTPS| P
+    R[Outros NavalRelay] -->|push HTTPS| P
     U[Você no navegador] -->|8080| P
 ```
 
-- **`orbitarelay-mta`**: o Exim. Recebe, assina com DKIM e entrega. A configuração é **gerada pelo painel** e recarregada sozinha.
-- **`orbitarelay-app`**: o painel e a API. Lê o log do Exim, grava no MySQL e gera a configuração do MTA.
-- **`orbitarelay-db`**: o MySQL, com mensagens, usuários e configurações.
-- **`orbitarelay-proxy`** (opcional): um proxy somente leitura da API do Docker, usado só para diagnosticar o IPv6.
+- **`navalrelay-mta`**: o Exim. Recebe, assina com DKIM e entrega. A configuração é **gerada pelo painel** e recarregada sozinha.
+- **`navalrelay-app`**: o painel e a API. Lê o log do Exim, grava no MySQL e gera a configuração do MTA.
+- **`navalrelay-db`**: o MySQL, com mensagens, usuários e configurações.
+- **`navalrelay-proxy`** (opcional): um proxy somente leitura da API do Docker, usado só para diagnosticar o IPv6.
 
 ## Qual docker-compose usar
 
@@ -83,7 +83,7 @@ Os dois relays leves estão em [Relay CLI](docs/relay-cli.md); o painel, abaixo.
 
 ```bash
 docker compose up -d
-docker compose logs orbitarelay-app | grep TOKEN
+docker compose logs navalrelay-app | grep TOKEN
 ```
 
 **2.** Abra `http://IP-DO-SERVIDOR:8080` e siga o **primeiro acesso** em duas etapas: token, usuário e e-mail; depois a senha.
@@ -193,13 +193,13 @@ Códigos de verificação, recuperação de senha e avisos usam um modelo HTML c
 
 ## Atualizando
 
-As imagens públicas ficam em `ghcr.io/aprendendolinux/orbita-relay-app` e `ghcr.io/aprendendolinux/orbita-relay-mta` (e `orbita-relay-cli` para o relay leve; uma tag por versão e `latest`). Para atualizar, troque a tag no `docker-compose.yml` (ou use `latest`) e rode:
+As imagens públicas ficam em `ghcr.io/clubenaval/navalrelay-app` e `ghcr.io/clubenaval/navalrelay-mta` (e `navalrelay-cli` para o relay leve; uma tag por versão e `latest`). Para atualizar, troque a tag no `docker-compose.yml` (ou use `latest`) e rode:
 
 ```bash
 docker compose pull && docker compose up -d
 ```
 
-Atualize **as duas imagens** (app e mta) juntas. O banco é migrado automaticamente na inicialização, sem perda de dados. As notas de cada versão estão em [Releases](https://github.com/AprendendoLinux/orbita-relay/releases).
+Atualize **as duas imagens** (app e mta) juntas. O banco é migrado automaticamente na inicialização, sem perda de dados. As notas de cada versão estão em [Releases](https://github.com/clubenaval/navalrelay/releases).
 
 ## Estrutura do projeto
 
@@ -220,7 +220,7 @@ docs/       Documentação e imagens
 
 ## Licença
 
-O OrbitaRelay é distribuído sob a [licença MIT](LICENSE).
+O NavalRelay é distribuído sob a [licença MIT](LICENSE).
 
 ## Licenças de terceiros
 
@@ -230,6 +230,6 @@ Os relatórios em PDF usam a fonte Liberation Sans (SIL Open Font License 1.1), 
 
 <div align="center">
 
-Desenvolvido por **[Henrique Fagundes](https://henrique.tec.br)**
+Desenvolvido por **[Assessoria de TI](https://clubenaval.org.br)** - Clube Naval
 
 </div>

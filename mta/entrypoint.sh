@@ -62,7 +62,7 @@ shutdown() {
 }
 trap shutdown TERM INT
 
-log "aguardando configuração do OrbitaRelay"
+log "aguardando configuração do NavalRelay"
 while true; do
   v=$(cat /config/version 2>/dev/null || true)
   if [ -n "$v" ] && [ "$v" != "$APPLIED" ] && [ -f "$CONF_SRC" ]; then

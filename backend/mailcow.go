@@ -97,7 +97,7 @@ func (c mcCreds) get(ctx context.Context, path string, out any) error {
 	}
 	req.Header.Set("X-API-Key", c.key)
 	req.Header.Set("Accept", "application/json")
-	req.Header.Set("User-Agent", "OrbitaRelay/"+version)
+	req.Header.Set("User-Agent", "NavalRelay/"+version)
 	resp, err := cl.Do(req)
 	if err != nil {
 		return err

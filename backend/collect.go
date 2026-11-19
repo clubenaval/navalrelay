@@ -57,7 +57,7 @@ func (a *App) centralClient() (*push.Client, error) {
 		return nil, errors.New("servidor central não configurado")
 	}
 	return &push.Client{Scheme: a.sStr("collect_scheme"), Host: host, Port: port, BasePath: a.sStr("collect_path"),
-		Token: a.sStr("collect_token"), SkipVerify: a.sBool("collect_skip_verify"), UserAgent: "OrbitaRelay/" + version}, nil
+		Token: a.sStr("collect_token"), SkipVerify: a.sBool("collect_skip_verify"), UserAgent: "NavalRelay/" + version}, nil
 }
 
 func (a *App) pushBatch(ctx context.Context, evs []logEvent) error {

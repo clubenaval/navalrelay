@@ -11,8 +11,8 @@ export function Footer() {
   return (
     <footer className="footer">
       <div className="line">
-        <b>{branding?.app_name ?? 'OrbitaRelay'} v{__APP_VERSION__}</b> - Relay SMTP e relatórios - Desenvolvido por{' '}
-        <a href="https://henrique.tec.br" target="_blank" rel="noopener noreferrer">Henrique Fagundes</a>
+        <b>{branding?.app_name ?? 'NavalRelay'} v{__APP_VERSION__}</b> - Relay SMTP e relatórios - Desenvolvido por{' '}
+        <a href="https://clubenaval.org.br" target="_blank" rel="noopener noreferrer">Assessoria de TI</a>
       </div>
     </footer>
   )
@@ -23,7 +23,7 @@ export function Brand({ size = 40 }: { size?: number }) {
   return (
     <div className="brand">
       <Logo size={size} />
-      <span>{branding?.app_name ?? 'OrbitaRelay'}</span>
+      <span>{branding?.app_name ?? 'NavalRelay'}</span>
     </div>
   )
 }

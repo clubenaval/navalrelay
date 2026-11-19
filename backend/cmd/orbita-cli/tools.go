@@ -171,7 +171,7 @@ func (c Config) toolTestMail(args []string) int {
 		fmt.Fprintln(os.Stderr, err)
 		return 1
 	}
-	msg := fmt.Sprintf("From: %s\r\nTo: %s\r\nSubject: Teste do OrbitaRelay CLI\r\nDate: %s\r\nMessage-ID: <%d.cli@%s>\r\nContent-Type: text/plain; charset=utf-8\r\n\r\nMensagem de teste enviada pelo relay %s.\r\n",
+	msg := fmt.Sprintf("From: %s\r\nTo: %s\r\nSubject: Teste do NavalRelay CLI\r\nDate: %s\r\nMessage-ID: <%d.cli@%s>\r\nContent-Type: text/plain; charset=utf-8\r\n\r\nMensagem de teste enviada pelo relay %s.\r\n",
 		from, to, time.Now().Format(time.RFC1123Z), time.Now().UnixNano(), c.Hostname, c.Hostname)
 	if _, err := w.Write([]byte(msg)); err != nil {
 		fmt.Fprintln(os.Stderr, err)

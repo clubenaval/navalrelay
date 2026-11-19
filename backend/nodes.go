@@ -27,9 +27,9 @@ type Node struct {
 func parseClientUA(ua string) (kind, ver string) {
 	name, v, _ := strings.Cut(ua, "/")
 	switch name {
-	case "OrbitaRelay-CLI":
+	case "NavalRelay-CLI":
 		return "cli", v
-	case "OrbitaRelay":
+	case "NavalRelay":
 		return "app", v
 	}
 	return "", ""

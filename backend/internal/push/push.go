@@ -1,4 +1,4 @@
-// Package push envia eventos do log do Exim a um servidor central OrbitaRelay (POST /api/collect).
+// Package push envia eventos do log do Exim a um servidor central NavalRelay (POST /api/collect).
 package push
 
 import (
@@ -91,7 +91,7 @@ func (c *Client) do(ctx context.Context, method, path string, body []byte, gz bo
 	req.Header.Set("Authorization", "Bearer "+c.Token)
 	ua := c.UserAgent
 	if ua == "" {
-		ua = "OrbitaRelay"
+		ua = "NavalRelay"
 	}
 	req.Header.Set("User-Agent", ua)
 	if body != nil {

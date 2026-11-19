@@ -55,7 +55,7 @@ Comece com `none`, acompanhe os relatórios e endureça depois.
 
 ## Verificação de DNS
 
-A verificação consulta **resolvedores públicos** (padrão `8.8.8.8` e `1.1.1.1`), porque o DNS interno da empresa pode não ter os registros públicos (*split-horizon*). Para usar outros resolvedores, defina `ORBITA_DNS_SERVERS` no serviço `orbitarelay-app` (por exemplo `9.9.9.9,1.1.1.1`). O contêiner precisa de saída UDP para a porta 53.
+A verificação consulta **resolvedores públicos** (padrão `8.8.8.8` e `1.1.1.1`), porque o DNS interno da empresa pode não ter os registros públicos (*split-horizon*). Para usar outros resolvedores, defina `ORBITA_DNS_SERVERS` no serviço `navalrelay-app` (por exemplo `9.9.9.9,1.1.1.1`). O contêiner precisa de saída UDP para a porta 53.
 
 ## Conferindo se as mensagens estão sendo assinadas
 
@@ -65,4 +65,4 @@ Se não houver assinatura, veja a [solução de problemas](solucao-de-problemas.
 
 ## DNS reverso (PTR)
 
-Para entrega direta, o IP público do servidor deve ter um **PTR** apontando para o hostname do relay, e esse hostname deve resolver de volta para o mesmo IP. Isso é configurado com o provedor do IP, fora do OrbitaRelay.
+Para entrega direta, o IP público do servidor deve ter um **PTR** apontando para o hostname do relay, e esse hostname deve resolver de volta para o mesmo IP. Isso é configurado com o provedor do IP, fora do NavalRelay.

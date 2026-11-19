@@ -32,7 +32,7 @@ type View struct {
 	Pass          string
 }
 
-const eximTemplate = `# Gerado automaticamente pelo OrbitaRelay. Não edite manualmente.
+const eximTemplate = `# Gerado automaticamente pelo NavalRelay. Não edite manualmente.
 {{if .Hostname}}primary_hostname = {{.Hostname}}
 {{end}}spool_directory = /var/spool/exim4
 pid_file_path = /run/exim4/exim.pid
@@ -55,7 +55,7 @@ acl_smtp_rcpt = acl_check_rcpt
 message_size_limit = {{.MaxMB}}M
 smtp_accept_max = 200
 smtp_accept_max_per_host = 50
-smtp_banner = $smtp_active_hostname ESMTP OrbitaRelay
+smtp_banner = $smtp_active_hostname ESMTP NavalRelay
 ignore_bounce_errors_after = 2d
 timeout_frozen_after = 7d
 tls_advertise_hosts = *

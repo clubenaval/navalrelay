@@ -55,12 +55,12 @@ export default function Mailcow() {
   return (
     <>
       <div className="topbar"><h1>Servidores Mailcow</h1></div>
-      <p className="muted">Registra as mensagens recebidas e enviadas por servidores Mailcow, lendo a API deles (somente leitura). O OrbitaRelay consulta o Mailcow a cada 30 segundos; nada é instalado nem alterado no servidor Mailcow.</p>
+      <p className="muted">Registra as mensagens recebidas e enviadas por servidores Mailcow, lendo a API deles (somente leitura). O NavalRelay consulta o Mailcow a cada 30 segundos; nada é instalado nem alterado no servidor Mailcow.</p>
       <div className="glass card stack" style={{ margin: '12px 0' }}>
         <b>Como conectar um Mailcow</b>
         <ol className="guide">
           <li>No painel do Mailcow, abra <b>Sistema &gt; Configuração &gt; Acesso &gt; API</b> (em versões antigas: Configuração &gt; Acesso).</li>
-          <li>Ative <b>Habilitar acesso à API</b> e, em <b>Permitir acesso à API a partir destes IPs/redes</b>, informe o IP público deste OrbitaRelay. Sem isso o Mailcow responde “acesso negado”.</li>
+          <li>Ative <b>Habilitar acesso à API</b> e, em <b>Permitir acesso à API a partir destes IPs/redes</b>, informe o IP público deste NavalRelay. Sem isso o Mailcow responde “acesso negado”.</li>
           <li>Em <b>Chave de API somente leitura</b>, gere uma chave e copie-a. Use sempre a chave de leitura, nunca a de leitura e escrita.</li>
           <li>Informe abaixo o endereço do Mailcow (ex.: <span className="mono">https://mail.exemplo.com.br</span>) e cole a chave. Use <b>Testar conexão</b> antes de salvar.</li>
         </ol>

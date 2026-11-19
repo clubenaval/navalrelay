@@ -48,7 +48,7 @@ var settingGroups = []Group{
 }
 
 var settingFields = []Field{
-	{Key: "app_name", Group: "geral", Label: "Nome do sistema", Type: "text", Default: "OrbitaRelay"},
+	{Key: "app_name", Group: "geral", Label: "Nome do sistema", Type: "text", Default: "NavalRelay"},
 	{Key: "default_theme", Group: "geral", Label: "Modo de cores padrão", Type: "select", Default: "dark", Options: []string{"dark", "light"}, Help: "dark = escuro, light = claro. É o que aparece para quem ainda não escolheu o próprio modo no botão do canto da tela"},
 	{Key: "timezone", Group: "geral", Label: "Fuso horário", Type: "text", Default: "America/Sao_Paulo", Help: "Nome IANA, ex.: America/Sao_Paulo"},
 	{Key: "deploy_mode", Group: "geral", Label: "Implantação", Type: "select", Default: "standalone", Options: []string{"standalone", "server", "client"}, Help: "standalone = instalação única; servidor = recebe eventos de outros relays; cliente = envia eventos a um servidor central"},

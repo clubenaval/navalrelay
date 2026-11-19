@@ -23,12 +23,12 @@ type rgb struct{ r, g, b int }
 var (
 	cInk     = rgb{27, 34, 48}
 	cMuted   = rgb{100, 112, 130}
-	cPrimary = rgb{14, 116, 144}
-	cAccent  = rgb{5, 150, 105}
-	cStripe  = rgb{245, 249, 252}
-	cHead    = rgb{228, 242, 247}
-	cLine    = rgb{214, 223, 232}
-	cCard    = rgb{248, 251, 253}
+	cPrimary = rgb{200, 16, 46}
+	cAccent  = rgb{139, 106, 43}
+	cStripe  = rgb{250, 247, 242}
+	cHead    = rgb{249, 234, 236}
+	cLine    = rgb{228, 220, 210}
+	cCard    = rgb{252, 250, 246}
 )
 
 type badgeStyle struct{ bg, fg rgb }
@@ -357,7 +357,7 @@ func (a *App) handleReportPDF(w http.ResponseWriter, r *http.Request) {
 	p.SetAutoPageBreak(false, 0)
 	p.SetCompression(true)
 	p.SetTitle(title, true)
-	p.SetCreator("OrbitaRelay v"+version, true)
+	p.SetCreator("NavalRelay v"+version, true)
 	p.SetAuthor(userFrom(r).Username, true)
 	p.AliasNbPages("{nb}")
 	p.SetFooterFunc(func() {
@@ -521,7 +521,7 @@ func (a *App) handleReportPDF(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.Header().Set("Content-Type", "application/pdf")
-	w.Header().Set("Content-Disposition", `attachment; filename="orbitarelay-relatorio-`+time.Now().In(loc).Format("20060102-150405")+`.pdf"`)
+	w.Header().Set("Content-Disposition", `attachment; filename="navalrelay-relatorio-`+time.Now().In(loc).Format("20060102-150405")+`.pdf"`)
 	w.Header().Set("Cache-Control", "no-store")
 	_ = p.Output(w)
 }

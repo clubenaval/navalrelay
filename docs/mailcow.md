@@ -1,21 +1,21 @@
 # Servidores Mailcow
 
-O OrbitaRelay pode registrar as mensagens **recebidas e enviadas** por servidores [Mailcow](https://mailcow.email), lendo a API deles. Funciona em qualquer modo de implantação e **nada é instalado nem alterado no Mailcow**.
+O NavalRelay pode registrar as mensagens **recebidas e enviadas** por servidores [Mailcow](https://mailcow.email), lendo a API deles. Funciona em qualquer modo de implantação e **nada é instalado nem alterado no Mailcow**.
 
 <p align="center"><img src="img/30-mailcow.png" alt="Servidores Mailcow" width="900"></p>
 
 ## Como conectar
 
 1. No Mailcow, abra **Sistema > Configuração > Acesso > API** (em versões antigas: Configuração > Acesso).
-2. Ative o acesso à API e, em **Permitir acesso à API a partir destes IPs/redes**, informe o **IP público do OrbitaRelay**. Sem isso o Mailcow responde "acesso negado".
+2. Ative o acesso à API e, em **Permitir acesso à API a partir destes IPs/redes**, informe o **IP público do NavalRelay**. Sem isso o Mailcow responde "acesso negado".
 3. Gere a **chave de API somente leitura**. **Nunca use a de leitura e escrita.**
-4. No OrbitaRelay, abra **Mailcow** (menu **Fontes**), informe **nome**, **endereço** (`https://mail.exemplo.com.br`) e a **chave**, use **Testar conexão** e salve.
+4. No NavalRelay, abra **Mailcow** (menu **Fontes**), informe **nome**, **endereço** (`https://mail.exemplo.com.br`) e a **chave**, use **Testar conexão** e salve.
 
 Se o certificado do Mailcow for autoassinado, marque **Não validar o certificado TLS**.
 
 ## Como funciona
 
-- A cada **30 segundos** o OrbitaRelay consulta os logs `postfix` e `rspamd-history` do Mailcow (`GET /api/v1/get/logs/...`, cabeçalho `X-API-Key`) e **correlaciona** as duas fontes pelo ID de fila e pelo `Message-ID`.
+- A cada **30 segundos** o NavalRelay consulta os logs `postfix` e `rspamd-history` do Mailcow (`GET /api/v1/get/logs/...`, cabeçalho `X-API-Key`) e **correlaciona** as duas fontes pelo ID de fila e pelo `Message-ID`.
 - Cada mensagem aparece em **Mensagens**, com o nome do servidor, o **sentido** (↓ recebida, ↑ enviada), os destinatários e o resultado da entrega (entregue, adiada ou falha). Rejeições do Rspamd aparecem como falha.
 - **Sentido**: mensagens autenticadas por um usuário do Mailcow contam como **enviadas**; as demais, como **recebidas**.
 - O menu lateral mostra um **pontinho** ao lado de **Mailcow**: verde quando tudo sincroniza, vermelho quando algum servidor está com erro.

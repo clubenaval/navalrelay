@@ -1,4 +1,4 @@
-# OrbitaRelay CLI, modo RELAY: entrega direto aos servidores de destino (MX) e assina com DKIM.
+# NavalRelay CLI, modo RELAY: entrega direto aos servidores de destino (MX) e assina com DKIM.
 # Relay SMTP leve (Exim), sem painel e sem banco de dados.
 # Para entregar por outro servidor SMTP (Gmail, Office 365...), use docker-compose.cli-smarthost.yml.
 # Toda a configuração fica neste arquivo. Para mudar algo: edite e rode
@@ -7,12 +7,12 @@
 # Guia rápido
 #   1. Preencha ORBITA_HOSTNAME e ORBITA_DOMAINS (e as redes autorizadas).
 #   2. Suba:            docker compose -f docker-compose.cli-relay.yml up -d
-#   3. Veja o DNS:      docker exec orbitarelay-cli orbita dns
+#   3. Veja o DNS:      docker exec navalrelay-cli orbita dns
 #   4. Publique SPF, DKIM e DMARC no DNS de cada domínio (veja "DNS" abaixo).
-#   5. Teste:           docker exec orbitarelay-cli orbita test-mail voce@gmail.com
-#   6. Acompanhe:       docker logs -f orbitarelay-cli
+#   5. Teste:           docker exec navalrelay-cli orbita test-mail voce@gmail.com
+#   6. Acompanhe:       docker logs -f navalrelay-cli
 #
-# Comandos úteis (docker exec orbitarelay-cli orbita ...)
+# Comandos úteis (docker exec navalrelay-cli orbita ...)
 #   status      SMTP, fila, chaves DKIM e conexão com o servidor central
 #   dns         registros SPF, DKIM e DMARC prontos para publicar
 #   config      configuração efetiva (config --exim mostra o exim.conf, sem senhas)
@@ -21,12 +21,12 @@
 #
 # Valores inválidos fazem o contêiner parar na subida, com a mensagem do erro em "docker logs".
 
-name: orbitarelay-cli
+name: navalrelay-cli
 
 services:
-  orbitarelay-cli:
-    image: ghcr.io/aprendendolinux/orbita-relay-cli:1.6.3
-    container_name: orbitarelay-cli
+  navalrelay-cli:
+    image: ghcr.io/clubenaval/navalrelay-cli:0.0.1
+    container_name: navalrelay-cli
     hostname: relay-filial
     restart: unless-stopped
 
@@ -85,7 +85,7 @@ services:
 
       # ------------------------------------------------------------------- DNS
       # O contêiner NÃO altera o DNS: ele mostra os registros prontos
-      # (docker exec orbitarelay-cli orbita dns). Você publica em cada domínio:
+      # (docker exec navalrelay-cli orbita dns). Você publica em cada domínio:
       #   <dominio>                  TXT  SPF   v=spf1 ip4:203.0.113.10 ~all
       #   <seletor>._domainkey.<dom> TXT  DKIM  v=DKIM1; k=rsa; p=...   (valor completo no "orbita dns")
       #   _dmarc.<dominio>           TXT  DMARC v=DMARC1; p=none; adkim=r; aspf=r; pct=100
@@ -103,7 +103,7 @@ services:
       # ORBITA_DMARC_RUA: dmarc@exemplo.com.br
 
       # ------------------------------------------------- Servidor central (opcional)
-      # Envia os eventos do log deste relay ao painel OrbitaRelay central, que unifica
+      # Envia os eventos do log deste relay ao painel NavalRelay central, que unifica
       # os relatórios. Sem a URL, o relay funciona sozinho.
       # No central: Relays remotos > adicionar servidor > copie o token (aparece uma vez).
       # ORBITA_CENTRAL_URL: https://orbita.exemplo.com.br
@@ -113,7 +113,7 @@ services:
       # Se o central ficar fora do ar, o envio retoma de onde parou, sem perda e sem duplicar.
 
       # ------------------------------------------------------------------ Logs
-      # O log do Exim aparece em "docker logs -f orbitarelay-cli" (linhas [reject] e
+      # O log do Exim aparece em "docker logs -f navalrelay-cli" (linhas [reject] e
       # [panic] marcadas; [cli] são os eventos do próprio contêiner). Os arquivos ficam
       # em /var/log/exim dentro do contêiner, com rotação:
       # ORBITA_LOG_ROTATE_MB: 50   # roda ao passar deste tamanho (MB)

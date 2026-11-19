@@ -93,7 +93,7 @@ export default function Ipv6Panel() {
                 <option value="new">27 ou mais nova</option>
                 <option value="old">26 ou mais antiga</option>
               </select>
-              <span className="help">{st.docker.error ? `Não foi possível detectar automaticamente (${st.docker.error}). ` : ''}Mantenha o serviço orbitarelay-proxy do compose para detectar a versão sozinho.</span>
+              <span className="help">{st.docker.error ? `Não foi possível detectar automaticamente (${st.docker.error}). ` : ''}Mantenha o serviço navalrelay-proxy do compose para detectar a versão sozinho.</span>
             </label>
           )}
           <ol>
@@ -104,7 +104,7 @@ export default function Ipv6Panel() {
             <li>Reinicie o Docker. Isso reinicia todos os containers da máquina:
               <Snippet text="sudo systemctl restart docker" />
             </li>
-            <li>Recrie a stack do OrbitaRelay, na pasta do docker-compose.yml:
+            <li>Recrie a stack do NavalRelay, na pasta do docker-compose.yml:
               <Snippet text="docker compose up -d --force-recreate" />
             </li>
             <li>Volte aqui e clique em <b>Verificar novamente</b>.</li>

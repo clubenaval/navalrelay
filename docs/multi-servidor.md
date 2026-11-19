@@ -51,7 +51,7 @@ O central continua em HTTP interno. No cliente use HTTPS na porta 443 (e o camin
 
 ```nginx
 location / {
-    proxy_pass http://orbitarelay-app:8080;
+    proxy_pass http://navalrelay-app:8080;
     proxy_set_header Host $host;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header X-Forwarded-Proto $scheme;

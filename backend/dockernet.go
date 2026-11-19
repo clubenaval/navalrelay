@@ -52,12 +52,12 @@ func queryDocker(ctx context.Context) dockerStatus {
 	var st dockerStatus
 	base := strings.TrimRight(os.Getenv("ORBITA_DOCKER_API"), "/")
 	if base == "" {
-		st.Error = "serviço orbitarelay-proxy não configurado"
+		st.Error = "serviço navalrelay-proxy não configurado"
 		return st
 	}
 	var ver struct{ Version, ApiVersion string }
 	if err := dockerGet(ctx, base, "/version", &ver); err != nil {
-		st.Error = "orbitarelay-proxy inacessível: " + err.Error()
+		st.Error = "navalrelay-proxy inacessível: " + err.Error()
 		return st
 	}
 	st.Available, st.Version, st.APIVersion = true, ver.Version, ver.ApiVersion

@@ -27,8 +27,8 @@ export default function Setup() {
   const labels: Record<string, string> = { banco: 'Banco de dados', acesso: 'Acesso', senha: 'Senha' }
   const [i, setI] = useState(0)
   const [token, setToken] = useState('')
-  const [db, setDb] = useState({ host: 'orbitarelay-db', port: '3306', user: 'orbita', password: '', name: 'orbita', sslmode: 'preferred' })
-  const [adm, setAdm] = useState({ app_name: 'OrbitaRelay', username: 'admin', email: '', password: '', confirm: '' })
+  const [db, setDb] = useState({ host: 'navalrelay-db', port: '3306', user: 'orbita', password: '', name: 'orbita', sslmode: 'preferred' })
+  const [adm, setAdm] = useState({ app_name: 'NavalRelay', username: 'admin', email: '', password: '', confirm: '' })
   const [show, setShow] = useState(false)
   const [gen, setGen] = useState(false)
   const [copied, setCopied] = useState(false)
@@ -100,7 +100,7 @@ export default function Setup() {
   const tokenField = (
     <label className="f">Token de configuração
       <input value={token} onChange={(e) => setToken(e.target.value)} required autoFocus autoComplete="off" spellCheck={false} placeholder="cole aqui o token exibido nos logs" />
-      <span className="help">Está nos logs do container: <span className="mono">docker compose logs orbitarelay-app</span></span>
+      <span className="help">Está nos logs do container: <span className="mono">docker compose logs navalrelay-app</span></span>
     </label>
   )
 
@@ -110,7 +110,7 @@ export default function Setup() {
       <div className="center">
         <form className="auth glass setup" style={{ maxWidth: 560 }} onSubmit={next} noValidate>
           <div className="logo"><Logo size={72} /></div>
-          <h1>Bem-vindo ao {adm.app_name || 'OrbitaRelay'}</h1>
+          <h1>Bem-vindo ao {adm.app_name || 'NavalRelay'}</h1>
           <p className="muted small" style={{ textAlign: 'center', marginTop: -6 }}>
             {done ? 'Tudo pronto!' : `Configuração inicial · etapa ${i + 1} de ${steps.length}`}
           </p>

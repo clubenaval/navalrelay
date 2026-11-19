@@ -7,7 +7,7 @@ Com o login por **LDAP/Active Directory**, as pessoas entram no painel com a **m
 ## Como funciona
 
 1. A pessoa digita o usuário (por exemplo `joao.santos`) e a senha no login do painel.
-2. O OrbitaRelay faz o **bind no diretório com as credenciais dessa pessoa**, usando o formato UPN: `joao.santos@exemplo.local` (usuário + o **sufixo UPN** configurado). **Não é preciso uma conta de serviço**, e nenhuma senha de diretório fica guardada no sistema.
+2. O NavalRelay faz o **bind no diretório com as credenciais dessa pessoa**, usando o formato UPN: `joao.santos@exemplo.local` (usuário + o **sufixo UPN** configurado). **Não é preciso uma conta de serviço**, e nenhuma senha de diretório fica guardada no sistema.
 3. Se o bind funcionar, o sistema procura o usuário na **Base DN**, aplicando o filtro de usuário e, se houver, a restrição do **grupo de acesso**.
 4. Se a pessoa estiver no **grupo de administradores**, ela entra como **Administrador**; caso contrário, como **Leitura**.
 5. O usuário é criado automaticamente no primeiro login (origem `ldap`), com nome e e-mail vindos do diretório.
@@ -22,7 +22,7 @@ Reúna estas informações do seu domínio:
 
 | Informação | Como obter | Exemplo |
 |---|---|---|
-| **Servidor** (controlador de domínio) | Nome ou IP do DC acessível a partir do servidor do OrbitaRelay | `dc01.exemplo.local` |
+| **Servidor** (controlador de domínio) | Nome ou IP do DC acessível a partir do servidor do NavalRelay | `dc01.exemplo.local` |
 | **Porta** | 389 (LDAP, com ou sem STARTTLS) ou 636 (LDAPS) | `636` |
 | **Sufixo UPN** | O que vem depois do `@` no login do usuário. No AD: atributo `userPrincipalName` ou `Get-ADForest \| Select UPNSuffixes` | `@exemplo.local` |
 | **Base DN** | Raiz da busca de usuários | `DC=exemplo,DC=local` |
@@ -47,7 +47,7 @@ Crie dois grupos de segurança no AD, por exemplo `Relay-Acesso` (quem pode ver 
 
 ### Rede
 
-O servidor do OrbitaRelay precisa alcançar o controlador de domínio na porta escolhida (389 ou 636), e o **nome do servidor precisa resolver dentro do contêiner**. Se o nome do DC for interno, confirme que o DNS usado pelo Docker o resolve (ou use o IP do DC; no LDAPS o certificado precisa corresponder ao nome, veja abaixo).
+O servidor do NavalRelay precisa alcançar o controlador de domínio na porta escolhida (389 ou 636), e o **nome do servidor precisa resolver dentro do contêiner**. Se o nome do DC for interno, confirme que o DNS usado pelo Docker o resolve (ou use o IP do DC; no LDAPS o certificado precisa corresponder ao nome, veja abaixo).
 
 ## Passo a passo
 
@@ -115,7 +115,7 @@ O `%s` é substituído pelo que a pessoa digitou **antes do `@`**, com os caract
 Veja o motivo exato nos logs do app:
 
 ```bash
-docker logs orbitarelay-app 2>&1 | grep -i ldap
+docker logs navalrelay-app 2>&1 | grep -i ldap
 ```
 
 | Sintoma | Causa provável | O que fazer |
@@ -123,7 +123,7 @@ docker logs orbitarelay-app 2>&1 | grep -i ldap
 | "Usuário ou senha inválidos" para uma conta correta | Sufixo UPN errado ou vazio | Confira o **Domínio UPN** (`@exemplo.local`). Use o valor do atributo `userPrincipalName` do usuário. |
 | Log: `informe o domínio UPN nas configurações` | **Domínio UPN** vazio | Preencha o campo. |
 | Log: `LDAP não configurado` | Servidor ou porta vazios | Preencha servidor e porta. |
-| **Testar conexão** falha | DC inacessível, porta bloqueada, nome não resolve, certificado inválido | Teste de dentro do contêiner: `docker exec orbitarelay-app nslookup dc01.exemplo.local` (DNS) e `docker exec orbitarelay-app nc -w 3 dc01.exemplo.local 636 < /dev/null && echo aberta` (porta). Confira firewall, DNS e certificado. |
+| **Testar conexão** falha | DC inacessível, porta bloqueada, nome não resolve, certificado inválido | Teste de dentro do contêiner: `docker exec navalrelay-app nslookup dc01.exemplo.local` (DNS) e `docker exec navalrelay-app nc -w 3 dc01.exemplo.local 636 < /dev/null && echo aberta` (porta). Confira firewall, DNS e certificado. |
 | O teste passa, mas o login falha | Filtro, Base DN ou grupo de acesso não incluem o usuário | Confira o **Base DN**, o **filtro** e se a pessoa está no **grupo de acesso** (inclusive por grupos aninhados). |
 | Entra como Leitura, mas deveria ser administrador | Não está no grupo de administradores, ou o DN do grupo está errado | Confira o DN exato do grupo (veja "Como descobrir o DN"). |
 | Falha só com LDAPS | Certificado não corresponde ao nome do servidor | Use o nome presente no certificado, ou marque **Ignorar validação do certificado**. |

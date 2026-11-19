@@ -1,15 +1,15 @@
 :root, :root[data-theme='dark'] {
-  --bg: #08090b; --bg2: #181b21; --surface: rgba(255, 255, 255, 0.05); --border: rgba(255, 255, 255, 0.13);
-  --text: #e9ebee; --muted: #8e949e; --primary: #3de0ff; --secondary: #9aa3b2; --accent: #7dffcf;
-  --success: #3be8a8; --warning: #ffcb4d; --danger: #ff5a7a; --glow: rgba(61, 224, 255, 0.35);
-  --on-primary: #05161b; --logo-ink: #08090b; --shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+  --bg: #060912; --bg2: #101727; --surface: rgba(255, 255, 255, 0.05); --border: rgba(255, 255, 255, 0.12);
+  --text: #eef0f4; --muted: #8d95a5; --primary: #ff3b4e; --secondary: #d4af6a; --accent: #f2cf7e;
+  --success: #3be8a8; --warning: #ffcb4d; --danger: #ff6b8b; --glow: rgba(255, 59, 78, 0.38);
+  --on-primary: #ffffff; --logo-ink: #060912; --shadow: 0 8px 40px rgba(0, 0, 0, 0.55);
   --radius: 18px; --blur: 20px; --font: 'Space Grotesk Variable', system-ui, sans-serif;
 }
 :root[data-theme='light'] {
-  --bg: #f6f7f9; --bg2: #e4e6ea; --surface: rgba(255, 255, 255, 0.78); --border: rgba(24, 30, 42, 0.15);
-  --text: #14181f; --muted: #596170; --primary: #2a303a; --secondary: #7b8493; --accent: #0e8f6e;
-  --success: #0b7a5a; --warning: #965600; --danger: #c0243f; --glow: rgba(24, 30, 42, 0.2);
-  --on-primary: #ffffff; --logo-ink: #ffffff; --shadow: 0 8px 32px rgba(24, 30, 42, 0.12);
+  --bg: #f7f4ee; --bg2: #ebe4d8; --surface: rgba(255, 255, 255, 0.8); --border: rgba(60, 30, 20, 0.14);
+  --text: #1c1714; --muted: #6b625a; --primary: #c8102e; --secondary: #8b6a2b; --accent: #a37b2c;
+  --success: #0b7a5a; --warning: #965600; --danger: #b4233f; --glow: rgba(200, 16, 46, 0.2);
+  --on-primary: #ffffff; --logo-ink: #ffffff; --shadow: 0 8px 32px rgba(60, 30, 20, 0.12);
 }
 * { box-sizing: border-box; }
 html, body, #root { min-height: 100%; }
@@ -113,7 +113,7 @@ button, .btn {
 }
 button:hover, .btn:hover { border-color: var(--primary); box-shadow: 0 0 14px var(--glow); }
 button:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
-button.primary, .btn.primary { background: linear-gradient(135deg, var(--primary), color-mix(in srgb, var(--primary) 45%, var(--secondary))); border-color: transparent; color: var(--on-primary); font-weight: 600; box-shadow: 0 0 18px var(--glow); }
+button.primary, .btn.primary { background: linear-gradient(135deg, var(--primary), color-mix(in srgb, var(--primary) 70%, #000)); border-color: transparent; color: var(--on-primary); font-weight: 600; box-shadow: 0 0 18px var(--glow); }
 button.danger { border-color: color-mix(in srgb, var(--danger) 60%, transparent); color: var(--danger); }
 button.sm { padding: 5px 10px; font-size: 13px; }
 button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, a:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }

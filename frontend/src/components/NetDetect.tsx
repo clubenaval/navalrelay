@@ -101,7 +101,7 @@ export default function NetDetect({ auto, version, current, onAdd, autoAdd = fal
           <details>
             <summary style={{ cursor: 'pointer' }}><b>Adicionar IPs da máquina (host)</b> <span className="muted small">— de dentro do contêiner não dá para lê-los</span></summary>
             <div className="stack" style={{ gap: 6, marginTop: 8 }}>
-              <span className="help">Rode <span className="mono">hostname -I</span> no servidor e cole o resultado (vários IPv4 e IPv6, separados por espaço). Também dá para fixá-los em <span className="mono">ORBITA_HOST_IPS</span> no serviço <span className="mono">orbitarelay-app</span>.</span>
+              <span className="help">Rode <span className="mono">hostname -I</span> no servidor e cole o resultado (vários IPv4 e IPv6, separados por espaço). Também dá para fixá-los em <span className="mono">ORBITA_HOST_IPS</span> no serviço <span className="mono">navalrelay-app</span>.</span>
               <div className="row">
                 <input style={{ flex: '1 1 320px' }} value={manual} onChange={(e) => setManual(e.target.value)} placeholder="192.168.0.10 2804:14c:... 172.18.0.1" aria-label="IPs da máquina" />
                 <button type="button" className="sm" onClick={addManual} disabled={!manual.trim()}>Adicionar</button>

@@ -4,14 +4,14 @@
 
 ### Logs do Exim (envio e recebimento)
 
-O Exim grava em **arquivos**, não na saída padrão. Por isso `docker logs orbitarelay-mta` mostra só as mensagens de inicialização (`[mta] …`).
+O Exim grava em **arquivos**, não na saída padrão. Por isso `docker logs navalrelay-mta` mostra só as mensagens de inicialização (`[mta] …`).
 
 ```bash
 # acompanhar em tempo real
-docker exec -it orbitarelay-mta tail -f /var/log/exim/main.log
+docker exec -it navalrelay-mta tail -f /var/log/exim/main.log
 
 # com pasta mapeada, direto no host
-tail -f /srv/orbitarelay/mta/logs/main.log
+tail -f /srv/navalrelay/mta/logs/main.log
 ```
 
 | Arquivo | Conteúdo |
@@ -23,20 +23,20 @@ tail -f /srv/orbitarelay/mta/logs/main.log
 Os três juntos:
 
 ```bash
-docker exec -it orbitarelay-mta sh -c 'tail -f /var/log/exim/main.log /var/log/exim/reject.log /var/log/exim/panic.log'
+docker exec -it navalrelay-mta sh -c 'tail -f /var/log/exim/main.log /var/log/exim/reject.log /var/log/exim/panic.log'
 ```
 
 No `main.log`, `<=` é recebimento, `=>` é entrega, `**` é falha e `==` é adiamento.
 
 ```bash
 # um destinatário ou remetente
-docker exec orbitarelay-mta grep "fulano@exemplo.com" /var/log/exim/main.log
+docker exec navalrelay-mta grep "fulano@exemplo.com" /var/log/exim/main.log
 
 # últimas falhas e adiadas
-docker exec orbitarelay-mta grep -E " \*\* | == " /var/log/exim/main.log | tail -20
+docker exec navalrelay-mta grep -E " \*\* | == " /var/log/exim/main.log | tail -20
 
 # problemas de DKIM
-docker exec orbitarelay-mta grep -i dkim /var/log/exim/main.log | tail
+docker exec navalrelay-mta grep -i dkim /var/log/exim/main.log | tail
 ```
 
 Os arquivos antigos ficam compactados (`main.log.1`, `main.log.2.gz`…); use `zcat` para lê-los.
@@ -44,15 +44,15 @@ Os arquivos antigos ficam compactados (`main.log.1`, `main.log.2.gz`…); use `z
 ### Fila de mensagens
 
 ```bash
-docker exec orbitarelay-mta exim4 -bp          # lista a fila
-docker exec orbitarelay-mta exim4 -bpc         # quantas mensagens na fila
-docker exec orbitarelay-mta exim4 -Mvl <id>    # histórico de uma mensagem
+docker exec navalrelay-mta exim4 -bp          # lista a fila
+docker exec navalrelay-mta exim4 -bpc         # quantas mensagens na fila
+docker exec navalrelay-mta exim4 -Mvl <id>    # histórico de uma mensagem
 ```
 
 ### Logs do painel
 
 ```bash
-docker logs -f orbitarelay-app
+docker logs -f navalrelay-app
 ```
 
 ## As mensagens saem sem assinatura DKIM
@@ -62,14 +62,14 @@ docker logs -f orbitarelay-app
 3. Procure erros no log do MTA:
 
 ```bash
-docker exec orbitarelay-mta grep -i "dkim\|tainted" /var/log/exim/main.log /var/log/exim/panic.log | tail
+docker exec navalrelay-mta grep -i "dkim\|tainted" /var/log/exim/main.log /var/log/exim/panic.log | tail
 ```
 
 4. Verifique se a chave e o mapa foram entregues ao Exim:
 
 ```bash
-docker exec orbitarelay-mta ls -la /etc/exim4/dkim
-docker exec orbitarelay-mta cat /etc/exim4/dkim/map
+docker exec navalrelay-mta ls -la /etc/exim4/dkim
+docker exec navalrelay-mta cat /etc/exim4/dkim/map
 ```
 
 O mapa deve listar `seudominio.com.br: /etc/exim4/dkim/seudominio.com.br.key`. Se a mensagem `Tainted filename` aparecer, atualize para a versão mais recente (a correção está no mapa de chaves).
@@ -100,7 +100,7 @@ Acontece com **pastas mapeadas** criadas como `root`. As imagens atuais ajustam 
 
 ## O painel mostra uma tela "Algo deu errado"
 
-É a tela de segurança do painel quando algum componente falha ao renderizar. Recarregue a página e, se persistir, copie a mensagem mostrada e abra uma [issue](https://github.com/AprendendoLinux/orbita-relay/issues) com ela.
+É a tela de segurança do painel quando algum componente falha ao renderizar. Recarregue a página e, se persistir, copie a mensagem mostrada e abra uma [issue](https://github.com/clubenaval/navalrelay/issues) com ela.
 
 ## Não consigo entrar (LDAP)
 
@@ -113,7 +113,7 @@ Entre com outro administrador e use **Redefinir senha** em **Usuários**. Se nã
 ## O e-mail do sistema (2FA, recuperação de senha) não chega
 
 1. Em **Configurações > E-mail do sistema**, use **Enviar teste** e veja a mensagem de erro.
-2. Se o SMTP for o próprio relay (`orbitarelay-mta`), a rede Docker do app precisa estar em **Redes autorizadas** e o **remetente** deve ser de um domínio cadastrado (se "Restringir remetentes" estiver ligado).
+2. Se o SMTP for o próprio relay (`navalrelay-mta`), a rede Docker do app precisa estar em **Redes autorizadas** e o **remetente** deve ser de um domínio cadastrado (se "Restringir remetentes" estiver ligado).
 3. Confira a caixa de spam.
 4. Para a recuperação de senha, o **Endereço público do painel** precisa estar preenchido.
 

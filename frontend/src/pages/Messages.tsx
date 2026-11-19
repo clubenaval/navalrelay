@@ -126,7 +126,7 @@ export default function Messages() {
                 <tr key={m.id} className="click" onClick={() => open(m.id)}>
                   <td className="mono" style={{ whiteSpace: 'nowrap' }}>{fmtDate(m.received_at, tz)}</td>
                   {server && <td className="wrap">{m.node || 'Local'}</td>}
-                  <td className="wrap">{m.direction === 'in' ? <span title="Recebida" style={{ color: 'var(--cyan, #22d3ee)' }}>↓ </span> : m.direction === 'out' ? <span title="Enviada" style={{ color: 'var(--green, #34d399)' }}>↑ </span> : null}{m.sender || <span className="muted">Sem remetente</span>}</td>
+                  <td className="wrap">{m.direction === 'in' ? <span title="Recebida" style={{ color: 'var(--secondary)' }}>↓ </span> : m.direction === 'out' ? <span title="Enviada" style={{ color: 'var(--green, #34d399)' }}>↑ </span> : null}{m.sender || <span className="muted">Sem remetente</span>}</td>
                   <td className="wrap">{m.recipients.length ? <>{m.recipients.slice(0, 3).join(', ')}{m.recipients.length > 3 ? ` +${m.recipients.length - 3}` : ''}</> : <span className="muted">Sem destinatário</span>}</td>
                   <td className="wrap">{m.subject || <span className="muted">Sem assunto</span>}</td>
                   <td className="wrap mono">{m.origin_host || m.origin_ip ? <>{m.origin_host && m.origin_host !== m.origin_ip ? `${m.origin_host} ` : ''}{m.origin_ip}</> : <span className="muted">Sem origem</span>}</td>

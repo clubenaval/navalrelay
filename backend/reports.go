@@ -244,7 +244,7 @@ func (a *App) handleExport(w http.ResponseWriter, r *http.Request) {
 	}
 	defer rows.Close()
 	w.Header().Set("Content-Type", "text/csv; charset=utf-8")
-	w.Header().Set("Content-Disposition", `attachment; filename="orbitarelay-`+time.Now().Format("20060102-150405")+`.csv"`)
+	w.Header().Set("Content-Disposition", `attachment; filename="navalrelay-`+time.Now().Format("20060102-150405")+`.csv"`)
 	_, _ = w.Write([]byte("\xef\xbb\xbf"))
 	cw := csv.NewWriter(w)
 	_ = cw.Write([]string{"Data/Hora", "Servidor", "Direcao", "ID", "Remetente", "Destinatarios", "Assunto", "Status", "Host de origem", "IP de origem", "Tamanho"})

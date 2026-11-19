@@ -55,7 +55,7 @@ Há um **envio de e-mail de teste direto ao smarthost**: informe o remetente e o
 - Porta 587 com STARTTLS ou 465 com TLS implícito.
 - O remetente precisa ser um endereço que o Google aceite para a sua conta ou domínio.
 - O Google exige que o **IP público do servidor** (ou o usuário) esteja autorizado em **Admin do Google Workspace > Apps > Google Workspace > Gmail > Roteamento > Serviço de relay de SMTP**.
-- O OrbitaRelay se apresenta (EHLO) com o **hostname do relay**. O Google fecha a conexão se o EHLO for `localhost`.
+- O NavalRelay se apresenta (EHLO) com o **hostname do relay**. O Google fecha a conexão se o EHLO for `localhost`.
 
 ## Redes e acesso
 
@@ -87,7 +87,7 @@ Escolha **local** (só usuários criados no painel) ou **LDAP / Active Directory
 
 ## E-mail do sistema (2FA)
 
-SMTP de saída que o sistema usa para enviar **códigos de verificação do 2FA por e-mail**, **recuperação de senha**, **confirmação de troca de e-mail** e e-mails de teste. Pode ser o seu próprio relay (por exemplo `orbitarelay-mta`, porta 25, sem criptografia, se a rede Docker estiver nas redes autorizadas) ou qualquer outro servidor SMTP.
+SMTP de saída que o sistema usa para enviar **códigos de verificação do 2FA por e-mail**, **recuperação de senha**, **confirmação de troca de e-mail** e e-mails de teste. Pode ser o seu próprio relay (por exemplo `navalrelay-mta`, porta 25, sem criptografia, se a rede Docker estiver nas redes autorizadas) ou qualquer outro servidor SMTP.
 
 | Campo | Para que serve |
 |---|---|

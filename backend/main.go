@@ -17,7 +17,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-var version = "1.6.3"
+var version = "0.0.1"
 
 type App struct {
 	dataDir   string
@@ -156,14 +156,14 @@ func main() {
 		defer c()
 		_ = srv.Shutdown(sc)
 	}()
-	log.Printf("OrbitaRelay v%s ouvindo em %s", version, srv.Addr)
+	log.Printf("NavalRelay v%s ouvindo em %s", version, srv.Addr)
 	if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 		log.Fatal(err)
 	}
 }
 
 func (a *App) handleBranding(w http.ResponseWriter, r *http.Request) {
-	out := map[string]any{"version": version, "setup_required": !a.setupDone(), "db_ready": a.ready(), "app_name": "OrbitaRelay", "default_theme": "dark"}
+	out := map[string]any{"version": version, "setup_required": !a.setupDone(), "db_ready": a.ready(), "app_name": "NavalRelay", "default_theme": "dark"}
 	if a.ready() {
 		out["app_name"] = a.sStr("app_name")
 		out["timezone"] = a.sStr("timezone")
