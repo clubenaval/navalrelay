@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	_ "embed"
 	"fmt"
 	"net/http"
@@ -11,6 +12,9 @@ import (
 
 	"github.com/go-pdf/fpdf"
 )
+
+//go:embed assets/logo-pdf.png
+var logoPDF []byte
 
 //go:embed fonts/LiberationSans-Regular.ttf
 var fontRegular []byte
@@ -81,23 +85,13 @@ func (g *pdfRep) stroke(c rgb) { g.p.SetDrawColor(c.r, c.g, c.b) }
 
 func (g *pdfRep) logo(cx, cy, s float64) {
 	p := g.p
-	k := s / 64
-	p.SetLineWidth(3 * k)
-	g.stroke(cPrimary)
-	p.Ellipse(cx, cy, 26*k, 10.5*k, 28, "D")
-	p.SetLineWidth(1.2 * k)
-	g.stroke(rgb{154, 163, 178})
-	p.Ellipse(cx, cy, 26*k, 10.5*k, -32, "D")
-	g.fill(cPrimary)
-	p.Circle(cx, cy, 9*k, "F")
-	g.fill(rgb{255, 255, 255})
-	p.RoundedRect(cx-4.4*k, cy-2.6*k, 8.8*k, 5.6*k, 0.9*k, "1234", "F")
-	g.stroke(cPrimary)
-	p.SetLineWidth(0.9 * k)
-	p.Line(cx-4.4*k, cy-2.4*k, cx, cy+0.6*k)
-	p.Line(cx, cy+0.6*k, cx+4.4*k, cy-2.4*k)
-	g.fill(cAccent)
-	p.Circle(cx+22*k, cy-10.5*k, 4*k, "F")
+	opt := fpdf.ImageOptions{ImageType: "PNG"}
+	if !g.logoOn {
+		p.RegisterImageOptionsReader("logo", opt, bytes.NewReader(logoPDF))
+		g.logoOn = true
+	}
+	w := s * 0.904
+	p.ImageOptions("logo", cx-w/2, cy-s/2, w, s, false, opt, 0, "")
 }
 
 func (g *pdfRep) firstHeader(sub string) float64 {

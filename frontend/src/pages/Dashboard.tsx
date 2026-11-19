@@ -18,8 +18,8 @@ const statusColor: Record<string, string> = {
   delivered: 'var(--success)',
   failed: 'var(--danger)',
   deferred: 'var(--warning)',
-  queued: 'var(--secondary)',
-  accepted: 'var(--primary)',
+  queued: 'var(--muted)',
+  accepted: 'var(--info)',
 }
 const order = ['delivered', 'accepted', 'deferred', 'queued', 'failed']
 
