@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-var version = "0.0.1-dev"
+var version = "0.0.2-dev"
 
 func main() {
 	cmd := "run"
