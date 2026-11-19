@@ -65,7 +65,7 @@ O servidor do NavalRelay precisa alcançar o controlador de domínio na porta es
 | **Base DN** | `DC=exemplo,DC=local` |
 | **Filtro de usuário** | `(sAMAccountName=%s)` (padrão; `%s` é substituído pelo login) |
 | **Grupo com acesso (DN)** | `CN=Relay-Acesso,OU=Grupos,DC=exemplo,DC=local`, ou vazio para liberar qualquer usuário da Base DN |
-| **Grupo administrador (DN)** | `CN=Relay-Admins,OU=Grupos,DC=exemplo,DC=local` |
+| **Grupo administrador (DN)** | `CN=Relay-Admins,OU=Grupos,DC=exemplo,DC=local`. Os membros entram como administradores, mesmo fora do grupo com acesso |
 
 4. Clique em **Salvar**.
 5. Clique em **Testar conexão LDAP**. O teste confirma que o servidor é alcançável e que a criptografia está correta. Ele **não** testa um usuário.

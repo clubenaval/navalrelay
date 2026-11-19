@@ -49,7 +49,11 @@ func (a *App) ldapDial() (*ldap.Conn, error) {
 func (a *App) ldapSearchUser(conn *ldap.Conn, username string) (*ldap.Entry, error) {
 	filter := strings.ReplaceAll(a.sStr("ldap_user_filter"), "%s", ldap.EscapeFilter(username))
 	if g := a.sStr("ldap_group_dn"); g != "" {
-		filter = fmt.Sprintf("(&%s(memberOf:1.2.840.113556.1.4.1941:=%s))", filter, ldap.EscapeFilter(g))
+		member := fmt.Sprintf("(memberOf:1.2.840.113556.1.4.1941:=%s)", ldap.EscapeFilter(g))
+		if ag := a.sStr("ldap_admin_group_dn"); ag != "" {
+			member = fmt.Sprintf("(|%s(memberOf:1.2.840.113556.1.4.1941:=%s))", member, ldap.EscapeFilter(ag))
+		}
+		filter = fmt.Sprintf("(&%s%s)", filter, member)
 	}
 	res, err := conn.Search(ldap.NewSearchRequest(a.sStr("ldap_base_dn"), ldap.ScopeWholeSubtree,
 		ldap.NeverDerefAliases, 2, 10, false, filter,
@@ -88,10 +92,12 @@ func (a *App) ldapAuth(username, password string) (ldapInfo, bool) {
 		return info, false
 	}
 	if err := svc.Bind(upn, password); err != nil {
+		log.Printf("ldap: bind de %s recusado: %v", upn, err)
 		return info, false
 	}
 	entry, err := a.ldapSearchUser(svc, strings.SplitN(username, "@", 2)[0])
 	if err != nil {
+		log.Printf("ldap: %s autenticado, mas fora dos grupos de acesso/administrador: %v", upn, err)
 		return info, false
 	}
 	info.name = entry.GetAttributeValue("displayName")

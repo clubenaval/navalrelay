@@ -85,7 +85,7 @@ var settingFields = []Field{
 	{Key: "ldap_base_dn", Group: "ldap", Label: "Base DN", Type: "text", Default: "", Depends: "auth_mode=ldap"},
 	{Key: "ldap_user_filter", Group: "ldap", Label: "Filtro de usuário", Type: "text", Default: "(sAMAccountName=%s)", Help: "%s é substituído pelo login", Depends: "auth_mode=ldap"},
 	{Key: "ldap_group_dn", Group: "ldap", Label: "Grupo com acesso (DN)", Type: "text", Default: "", Help: "Vazio libera qualquer usuário do Base DN", Depends: "auth_mode=ldap"},
-	{Key: "ldap_admin_group_dn", Group: "ldap", Label: "Grupo administrador (DN)", Type: "text", Default: "", Depends: "auth_mode=ldap"},
+	{Key: "ldap_admin_group_dn", Group: "ldap", Label: "Grupo administrador (DN)", Type: "text", Default: "", Help: "Membros entram como administradores, mesmo fora do grupo com acesso", Depends: "auth_mode=ldap"},
 	{Key: "smtp_host", Group: "seguranca", Label: "Servidor SMTP", Type: "text", Default: "", Help: "Usado para enviar códigos de verificação (2FA por e-mail). Pode ser o seu próprio relay ou qualquer SMTP"},
 	{Key: "smtp_port", Group: "seguranca", Label: "Porta", Type: "number", Default: 587},
 	{Key: "smtp_tls", Group: "seguranca", Label: "Criptografia", Type: "select", Default: "starttls", Options: []string{"none", "starttls", "tls"}, Help: "tls = SMTPS implícito (porta 465)"},

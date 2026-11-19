@@ -24,7 +24,7 @@ services:
       start_period: 20s
 
   navalrelay-app:
-    image: ghcr.io/clubenaval/navalrelay-app:0.0.2
+    image: ghcr.io/clubenaval/navalrelay-app:0.0.3
     container_name: navalrelay-app
     hostname: navalrelay-app
     restart: unless-stopped
@@ -51,7 +51,7 @@ services:
     networks: [orbita]
 
   navalrelay-mta:
-    image: ghcr.io/clubenaval/navalrelay-mta:0.0.2
+    image: ghcr.io/clubenaval/navalrelay-mta:0.0.3
     container_name: navalrelay-mta
     hostname: navalrelay-mta
     restart: unless-stopped
