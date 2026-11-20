@@ -24,7 +24,7 @@ services:
       start_period: 20s
 
   navalrelay-app:
-    image: ghcr.io/clubenaval/navalrelay-app:0.0.3
+    image: ghcr.io/clubenaval/navalrelay-app:0.0.4
     container_name: navalrelay-app
     hostname: navalrelay-app
     restart: unless-stopped
@@ -51,7 +51,7 @@ services:
     networks: [orbita]
 
   navalrelay-mta:
-    image: ghcr.io/clubenaval/navalrelay-mta:0.0.3
+    image: ghcr.io/clubenaval/navalrelay-mta:0.0.4
     container_name: navalrelay-mta
     hostname: navalrelay-mta
     restart: unless-stopped
@@ -70,7 +70,7 @@ services:
   # Proxy somente leitura da API do Docker: expõe apenas versão, info e redes, para o painel
   # diagnosticar o IPv6. Para desativar, remova este serviço e a variável ORBITA_DOCKER_API do app.
   navalrelay-proxy:
-    image: ghcr.io/clubenaval/docker-socket-proxy:0.6.0
+    image: ghcr.io/clubenaval/navalrelay-proxy:0.0.4
     container_name: navalrelay-proxy
     hostname: navalrelay-proxy
     restart: unless-stopped

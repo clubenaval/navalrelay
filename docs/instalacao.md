@@ -103,7 +103,7 @@ docker exec navalrelay-db sh -c 'mysqldump -uorbita -p"$MYSQL_PASSWORD" orbita' 
 
 ## Atualizando
 
-As imagens públicas ficam em `ghcr.io/clubenaval/navalrelay-app` e `ghcr.io/clubenaval/navalrelay-mta`, com uma tag por versão e `latest`. Troque a tag no compose (ou use `latest`) e rode:
+As imagens públicas ficam em `ghcr.io/clubenaval/navalrelay-app`, `ghcr.io/clubenaval/navalrelay-mta` e `ghcr.io/clubenaval/navalrelay-proxy`, com uma tag por versão e `latest`. Troque a tag no compose (ou use `latest`) e rode:
 
 ```bash
 docker compose pull && docker compose up -d

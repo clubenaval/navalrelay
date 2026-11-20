@@ -63,7 +63,7 @@ flowchart LR
 - **`navalrelay-mta`**: o Exim. Recebe, assina com DKIM e entrega. A configuração é **gerada pelo painel** e recarregada sozinha.
 - **`navalrelay-app`**: o painel e a API. Lê o log do Exim, grava no MySQL e gera a configuração do MTA.
 - **`navalrelay-db`**: o MySQL, com mensagens, usuários e configurações.
-- **`navalrelay-proxy`** (opcional): um proxy somente leitura da API do Docker, usado só para diagnosticar o IPv6.
+- **`navalrelay-proxy`** (opcional): um proxy somente leitura da API do Docker, usado só para diagnosticar o IPv6. Imagem própria, construída a partir de [`proxy/`](proxy/README.md).
 
 ## Qual docker-compose usar
 
@@ -193,7 +193,7 @@ Códigos de verificação, recuperação de senha e avisos usam um modelo HTML c
 
 ## Atualizando
 
-As imagens públicas ficam em `ghcr.io/clubenaval/navalrelay-app` e `ghcr.io/clubenaval/navalrelay-mta` (e `navalrelay-cli` para o relay leve; uma tag por versão e `latest`). Para atualizar, troque a tag no `docker-compose.yml` (ou use `latest`) e rode:
+As imagens públicas ficam em `ghcr.io/clubenaval/navalrelay-app`, `ghcr.io/clubenaval/navalrelay-mta` e `ghcr.io/clubenaval/navalrelay-proxy` (e `navalrelay-cli` para o relay leve; uma tag por versão e `latest`). Para atualizar, troque a tag no `docker-compose.yml` (ou use `latest`) e rode:
 
 ```bash
 docker compose pull && docker compose up -d

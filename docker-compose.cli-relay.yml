@@ -25,7 +25,7 @@ name: navalrelay-cli
 
 services:
   navalrelay-cli:
-    image: ghcr.io/clubenaval/navalrelay-cli:0.0.3
+    image: ghcr.io/clubenaval/navalrelay-cli:0.0.4
     container_name: navalrelay-cli
     hostname: relay-filial
     restart: unless-stopped

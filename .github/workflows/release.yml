@@ -52,3 +52,41 @@ jobs:
           tags: |
             ghcr.io/clubenaval/navalrelay-cli:${{ steps.v.outputs.version }}
             ghcr.io/clubenaval/navalrelay-cli:latest
+      - name: Build de teste do proxy
+        uses: docker/build-push-action@v6
+        with:
+          context: ./proxy
+          load: true
+          tags: navalrelay-proxy:test
+      - name: Smoke test do proxy
+        run: |
+          docker run -d --name px --read-only --tmpfs /tmp --tmpfs /run --cap-drop ALL \
+            --security-opt no-new-privileges:true -e INFO=1 -e NETWORKS=1 \
+            -v /var/run/docker.sock:/var/run/docker.sock:ro -p 127.0.0.1:2375:2375 navalrelay-proxy:test
+          sleep 3
+          code() { curl -s -o /dev/null -w '%{http_code}' --max-time 5 -X "$1" "http://127.0.0.1:2375$2"; }
+          set -x
+          [ "$(code GET /version)" = 200 ]
+          [ "$(code GET /info)" = 200 ]
+          [ "$(code GET /networks/bridge)" = 200 ]
+          [ "$(code GET /containers/json)" = 403 ]
+          [ "$(code GET /events)" = 403 ]
+          [ "$(code POST /networks/create)" = 403 ]
+          docker rm -f px
+      - name: Varredura do proxy (falha em HIGH/CRITICAL com correção)
+        run: |
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
+            anchore/grype:v0.122.1 navalrelay-proxy:test --only-fixed --fail-on high
+      - uses: docker/build-push-action@v6
+        with:
+          context: ./proxy
+          push: true
+          no-cache: true
+          pull: true
+          platforms: linux/amd64,linux/arm64
+          labels: |
+            org.opencontainers.image.source=https://github.com/clubenaval/navalrelay
+            org.opencontainers.image.licenses=Apache-2.0
+          tags: |
+            ghcr.io/clubenaval/navalrelay-proxy:${{ steps.v.outputs.version }}
+            ghcr.io/clubenaval/navalrelay-proxy:latest
