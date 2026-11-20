@@ -70,11 +70,16 @@ services:
   # Proxy somente leitura da API do Docker: expõe apenas versão, info e redes, para o painel
   # diagnosticar o IPv6. Para desativar, remova este serviço e a variável ORBITA_DOCKER_API do app.
   navalrelay-proxy:
-    image: tecnativa/docker-socket-proxy:0.3.0
+    image: ghcr.io/clubenaval/docker-socket-proxy:0.6.0
     container_name: navalrelay-proxy
     hostname: navalrelay-proxy
     restart: unless-stopped
+    read_only: true
+    tmpfs: [/tmp, /run]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
     environment:
+      EVENTS: "0"
       VERSION: "1"
       INFO: "1"
       NETWORKS: "1"
